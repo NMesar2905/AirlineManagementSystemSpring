@@ -8,6 +8,6 @@ INSERT INTO flight (f_code, f_name, source, destination) VALUES
 ('11223347', 'BOGMAN', 'Bogota', 'Manizales'),
 ('11223348', 'MANBOG', 'Manizales', 'Bogota'),
 ('11223349', 'NEVMAN', 'Neiva', 'Manizales'),
-('11223350', 'NEVMAN', 'Bogota', 'Neiva'),
-('11223351', 'NEVMAN', 'Neiva', 'Bogota'),
+('11223350', 'BOGNEV', 'Bogota', 'Neiva'),
+('11223351', 'NEVBOG', 'Neiva', 'Bogota'),
 ('11223352', 'MANNEV', 'Manizales', 'Neiva');
