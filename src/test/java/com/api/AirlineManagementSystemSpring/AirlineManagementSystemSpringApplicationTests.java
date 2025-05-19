@@ -10,6 +10,7 @@ import com.api.AirlineManagementSystemSpring.dto.CancelReservationDTO;
 import com.api.AirlineManagementSystemSpring.dto.FlightListInfo;
 import com.api.AirlineManagementSystemSpring.dto.PassengerDTO;
 import com.api.AirlineManagementSystemSpring.dto.ReservationDTO;
+import com.api.AirlineManagementSystemSpring.entities.Cancelation;
 import com.api.AirlineManagementSystemSpring.entities.Passenger;
 import com.api.AirlineManagementSystemSpring.entities.Reservation;
 
@@ -32,7 +33,7 @@ class AirlineManagementSystemSpringApplicationTests {
 
 	RequestSpecification req;
 
-	String PNR;
+	String pnr;
 	Integer aadhar;
 
 	@BeforeMethod
@@ -53,7 +54,7 @@ class AirlineManagementSystemSpringApplicationTests {
 		Assert.assertFalse(flightListResponse.isEmpty());
 
 		boolean flightListValidation = flightListResponse.stream().allMatch(
-				flight -> flight.f_code() != null && flight.f_code().isEmpty()
+				flight -> flight.f_code() != null && !flight.f_code().isEmpty()
 				&& flight.source() != null && !flight.source().isEmpty()
 				&& flight.destination() != null && !flight.destination().isEmpty()
 				&& flight.f_name() != null && !flight.f_name().isEmpty());
@@ -113,8 +114,8 @@ class AirlineManagementSystemSpringApplicationTests {
 
 		Reservation reservation = response.as(Reservation.class);
 
-		PNR = reservation.getPNR();
-		Assert.assertTrue(PNR != null);
+		pnr = reservation.getPNR();
+		Assert.assertTrue(pnr != null);
 		Assert.assertEquals(reservation.getAadhar(), aadhar);
 
 	}
@@ -171,12 +172,12 @@ class AirlineManagementSystemSpringApplicationTests {
 
 	@Test(priority = 3, dependsOnMethods = "testCreateReservation_success")
 	public void testGetJourneyDetails_success() {
-		Response response = req.queryParam("PNR", PNR).when().get("/passenger/journey-details");
+		Response response = req.queryParam("PNR", pnr).when().get("/passenger/journey-details");
 		validateResponse(response, 200);
 
 		Reservation reservation = response.as(Reservation.class);
 
-		Assert.assertEquals(reservation.getPNR(), PNR);
+		Assert.assertEquals(reservation.getPNR(), pnr);
 		Assert.assertEquals(reservation.getAadhar(), aadhar);
 
 	}
@@ -200,10 +201,15 @@ class AirlineManagementSystemSpringApplicationTests {
 	@Test(priority = 4, dependsOnMethods = "testCreateReservation_success")
 	public void testCancelReservation_success() {
 
-		Response response = req.body(new CancelReservationDTO(PNR)).when().delete("/passenger/cancel");
+		Response response = req.body(new CancelReservationDTO(pnr)).when().delete("/passenger/cancel");
 		validateResponse(response, 200);
-
-		Assert.assertEquals(response.body().asString(), "Ticket Cancelled");
+		
+		Cancelation cancelation = response.as(Cancelation.class);
+		
+		Assert.assertEquals(cancelation.getPnr(), pnr);
+		Assert.assertNotNull(cancelation.getCancelno());
+		Assert.assertNotNull(cancelation.getFcode());
+		Assert.assertNotNull(cancelation.getDate());
 
 	}
 

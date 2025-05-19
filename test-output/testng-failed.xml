@@ -6,9 +6,8 @@
       <class name="com.api.AirlineManagementSystemSpring.AirlineManagementSystemSpringApplicationTests">
         <methods>
           <include name="testCreatePassenger_success"/>
-          <include name="testGetJourneyDetails_PNREmpty"/>
           <include name="createRestSpecification"/>
-          <include name="testGetJourneyDetails_success"/>
+          <include name="testCancelReservation_success"/>
           <include name="testCreateReservation_success"/>
         </methods>
       </class> <!-- com.api.AirlineManagementSystemSpring.AirlineManagementSystemSpringApplicationTests -->

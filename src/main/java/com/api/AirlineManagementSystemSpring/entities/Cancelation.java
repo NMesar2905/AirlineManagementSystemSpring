@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "cancelno")
 public class Cancelation {
 
-	private String PNR;
+	private String pnr;
 	private String name;
 	@Id
 	private String cancelno;
@@ -29,7 +29,7 @@ public class Cancelation {
 
 		Random random = new Random();
 
-		this.PNR = PNR;
+		this.pnr = PNR;
 		this.name = name;
 		this.cancelno = Integer.toString(random.nextInt(1000000));
 		this.fcode = fcode;
