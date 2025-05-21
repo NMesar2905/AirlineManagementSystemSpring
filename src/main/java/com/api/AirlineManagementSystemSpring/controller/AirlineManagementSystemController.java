@@ -19,6 +19,7 @@ import com.api.AirlineManagementSystemSpring.dto.CancelReservationDTO;
 import com.api.AirlineManagementSystemSpring.dto.PassengerDTO;
 import com.api.AirlineManagementSystemSpring.dto.ReservationDTO;
 import com.api.AirlineManagementSystemSpring.entities.Cancelation;
+import com.api.AirlineManagementSystemSpring.entities.Flight;
 import com.api.AirlineManagementSystemSpring.entities.Passenger;
 import com.api.AirlineManagementSystemSpring.entities.Reservation;
 import com.api.AirlineManagementSystemSpring.exceptions.ResourceNotFoundException;
@@ -39,7 +40,7 @@ public class AirlineManagementSystemController {
 
 	@Autowired
 	private FlightRepository flightRepository;
-
+	
 	@Autowired
 	private PassengerRepository passengerRepository;
 
